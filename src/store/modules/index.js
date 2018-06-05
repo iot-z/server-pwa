@@ -25,19 +25,25 @@ export default {
   },
 
   getters: {
-    aliases: state => _.sortBy(state.aliases, [o => o.name]),
-    modules: state => _.sortBy(state.modules, [o => o.name]),
-    scenes: state => _.sortBy(state.scenes, [o => o.name]),
+    aliases(state) {
+      return _.sortBy(state.aliases, [o => o.name]);
+    },
+    modules(state) {
+      return _.sortBy(state.modules, [o => o.name]);
+    },
+    scenes(state) {
+      return _.sortBy(state.scenes, [o => o.name]);
+    },
   },
 
   mutations: {
-    aliases: (state, aliases) => {
+    aliases(state, aliases) {
       state.aliases = aliases;
     },
-    modules: (state, modules) => {
+    modules(state, modules) {
       state.modules = modules;
     },
-    scenes: (state, scenes) => {
+    scenes(state, scenes) {
       state.scenes = scenes;
     },
 
