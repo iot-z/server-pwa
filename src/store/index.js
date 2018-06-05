@@ -22,7 +22,7 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    connected({ state }) {
+    connected(state) {
       return state.connected;
     },
   },

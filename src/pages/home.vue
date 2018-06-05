@@ -7,6 +7,7 @@
       </f7-nav-right>
     </f7-navbar>
 
+    <f7-block-title>Connected {{ connected }}</f7-block-title>
     <f7-block-title>Cenas</f7-block-title>
     <f7-block v-if="!scenes.length">
       Nenhuma cena cadastrada
@@ -43,6 +44,7 @@ export default {
       aliases: 'modules/aliases',
       modules: 'modules/modules',
       scenes: 'modules/scenes',
+      connected: 'connected',
     }),
   },
 

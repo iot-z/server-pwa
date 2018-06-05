@@ -13,11 +13,8 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
 
+export default {
   mounted() {
     this.$refs.splash.show();
 
