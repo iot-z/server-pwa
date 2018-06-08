@@ -33,7 +33,7 @@
         TweenMax.set(this.$el.querySelector('.circle-cover'), { width: 1, height: 1 });
         TweenMax.to(this.$el.querySelector('.circle-cover'), 1.2, { scale: Math.max(window.innerWidth, window.innerHeight) * 1.41421, delay: 0.25, ease: Expo.easeInOut });
 
-        TweenMax.to(this.$el, 0.4, { opacity: 0, delay: 1.2, ease: Linear.easeNone, onComplete() { TweenMax.set('.cover-loading', { display: 'none' }); } });
+        TweenMax.to(this.$el, 0.4, { opacity: 0, delay: 1, ease: Linear.easeNone, onComplete() { TweenMax.set('.cover-loading', { display: 'none' }); } });
       },
     },
   };
