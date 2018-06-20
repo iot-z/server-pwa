@@ -26,13 +26,17 @@ export default {
 
   getters: {
     aliases(state) {
-      return _.sortBy(state.aliases, [o => o.name]);
+      return _.sortBy(state.aliases, [o => o.status, o => o.name]);
     },
     modules(state) {
-      return _.sortBy(state.modules, [o => o.name]);
+      return _.sortBy(state.modules, [o => o.status, o => o.name]);
     },
     scenes(state) {
-      return _.sortBy(state.scenes, [o => o.name]);
+      return _.sortBy(state.scenes, [o => o.status, o => o.name]);
+    },
+
+    modulesActives(state, getters) {
+      return getters.modules.filter(o => o.status);
     },
   },
 
@@ -41,6 +45,7 @@ export default {
       state.aliases = aliases;
     },
     modules(state, modules) {
+      console.log(modules);
       state.modules = modules;
     },
     scenes(state, scenes) {

@@ -23,14 +23,12 @@
       </f7-list>
     </div>
 
-    <f7-button @click="add">Teste</f7-button>
-
     <f7-block-title>Módulos</f7-block-title>
     <f7-block v-if="!modules.length">
       Nenhum módulo conectado no momento
     </f7-block>
-    <f7-list v-if="modules.length">
-      <f7-list-item v-for="module in modules" :key="module.id" :link="`modules/${module.id}/`" :title="module.name"></f7-list-item>
+    <f7-list>
+      <f7-list-item v-for="module in modules" :key="module.id" :link="module.connected ? `modules/ui/${module.id}/` : false" :title="module.name" :class="{ disconnected: !module.connected}"></f7-list-item>
     </f7-list>
   </f7-page>
 </template>
@@ -42,16 +40,20 @@ export default {
   computed: {
     ...mapGetters({
       aliases: 'modules/aliases',
-      modules: 'modules/modules',
+      modules: 'modules/modulesActives',
       scenes: 'modules/scenes',
       connected: 'connected',
     }),
   },
-
-  methods: {
-    add() {
-      this.$store.dispatch('modules/addAlias', { socket: this.$socket, alias: { id: 'aaa', name: 'Name' } });
-    },
-  },
 };
 </script>
+
+<style>
+  .list li {
+    transition: opacity .2s linear;
+  }
+
+  .disconnected .item-content .item-inner {
+    opacity: .55;
+  }
+</style>

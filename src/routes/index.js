@@ -1,5 +1,5 @@
 import HomePage from '../pages/home';
-import ModulePage from '../pages/module';
+import ModulesUiPage from '../pages/modules/ui';
 import DynamicRoutePage from '../pages/dynamic-route';
 import NotFoundPage from '../pages/not-found';
 
@@ -9,8 +9,8 @@ export default [
     component: HomePage,
   },
   {
-    path: '/modules/:id/',
-    component: ModulePage,
+    path: '/modules/ui/:id/',
+    component: ModulesUiPage,
   },
   {
     path: '(.*)',
