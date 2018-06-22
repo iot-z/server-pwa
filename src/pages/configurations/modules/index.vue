@@ -1,9 +1,13 @@
 <template>
   <f7-page>
     <f7-navbar>
+      <f7-nav-left back-link="true">
+      </f7-nav-left>
+
       <f7-nav-title>Configurações</f7-nav-title>
+
       <f7-nav-right>
-        <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
+        <f7-link icon-material="menu" href="/"></f7-link>
       </f7-nav-right>
     </f7-navbar>
 
@@ -12,7 +16,7 @@
       Nenhum módulo encontrado
     </f7-block>
     <f7-list v-if="modules.length">
-      <f7-list-item v-for="module in modules" :key="module.id" :link="`modules/${module.id}/`" :title="module.name">Connected: {{ module.connected }}</f7-list-item>
+      <f7-list-item v-for="module in modules" :key="module.id" :link="`/configurations/modules/${module.id}/`" :title="module.name">Connected: {{ module.connected }}</f7-list-item>
     </f7-list>
   </f7-page>
 </template>
@@ -28,6 +32,6 @@ export default {
     ...mapGetters({
       modules: 'modules/modules',
     }),
-  }
+  },
 };
 </script>

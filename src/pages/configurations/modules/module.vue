@@ -1,33 +1,34 @@
 <template>
   <f7-page>
     <f7-navbar>
+      <f7-nav-left back-link="true">
+      </f7-nav-left>
+
       <f7-nav-title>Configurações</f7-nav-title>
+
       <f7-nav-right>
-        <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="right"></f7-link>
+        <f7-link icon-material="menu" href="/"></f7-link>
       </f7-nav-right>
     </f7-navbar>
 
     <f7-list>
       <f7-list-item>
-        <a href="modules/AAAAA-AAAAA-AAAAA-AAAAA/" class="item-link">
-          <div class="list-title">Module Name</div>
-          <small>Module Type</small> <small>999.999.999</small>
-        </a>
+        <div class="list-title">{{ module.name }}</div>
+        <small>{{ module.type }}</small> <small>{{ module.version }}</small>
       </f7-list-item>
-      <f7-list-item title="Conectado">Sim</f7-list-item>
-      <f7-list-item :link="`configurations/modules/${module.id}/driver`" title="Driver"> Selecionar Driver</f7-list-item>
-      <f7-list-item :link="`configurations/modules/${module.id}/ui`" title="Interface"> Selecionar Interface</f7-list-item>
-      <f7-list-item title="Ativo"><f7-toggle checked></f7-toggle></f7-list-item>
+      <f7-list-item title="Conectado">{{ module.connected ? 'Sim' : 'Não' }}</f7-list-item>
+      <f7-list-item :link="`configurations/modules/${module.id}/driver/`" title="Driver"> Selecionar Driver</f7-list-item>
+      <f7-list-item :link="`configurations/modules/${module.id}/ui/`" title="Interface"> Selecionar Interface</f7-list-item>
+      <f7-list-item title="Ativo"><f7-toggle :checked="module.status"></f7-toggle></f7-list-item>
     </f7-list>
   </f7-page>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 
 export default {
   data() {
     return {
-        module: {},
+      module: this.$store.getters['modules/module'](this.$f7route.params.id),
     };
   },
 };

@@ -1,7 +1,9 @@
 import HomePage from '../pages/home';
 import ModulesUiPage from '../pages/modules/ui';
-import DynamicRoutePage from '../pages/dynamic-route';
 import NotFoundPage from '../pages/not-found';
+import ConfigurationsPage from '../pages/configurations';
+import ConfigurationsModulesPage from '../pages/configurations/modules';
+import ConfigurationsModulesModulePage from '../pages/configurations/modules/module';
 
 export default [
   {
@@ -13,11 +15,19 @@ export default [
     component: ModulesUiPage,
   },
   {
-    path: '(.*)',
-    component: NotFoundPage,
+    path: '/configurations/modules/:id/',
+    component: ConfigurationsModulesModulePage,
   },
   {
-    path: '/dynamic-route/blog/:blogId/post/:postId/',
-    component: DynamicRoutePage,
+    path: '/configurations/modules/',
+    component: ConfigurationsModulesPage,
+  },
+  {
+    path: '/configurations/',
+    component: ConfigurationsPage,
+  },
+  {
+    path: '(.*)',
+    component: NotFoundPage,
   },
 ];

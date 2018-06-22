@@ -35,6 +35,16 @@ export default {
       return _.sortBy(state.scenes, [o => o.status, o => o.name]);
     },
 
+    alias(state) {
+      return alias => state.aliases.find(o => o.id === alias);
+    },
+    module(state) {
+      return module => state.modules.find(o => o.id === module);
+    },
+    scene(state) {
+      return scene => state.scenes.find(o => o.id === scene);
+    },
+
     modulesActives(state, getters) {
       return getters.modules.filter(o => o.status);
     },
@@ -45,7 +55,6 @@ export default {
       state.aliases = aliases;
     },
     modules(state, modules) {
-      console.log(modules);
       state.modules = modules;
     },
     scenes(state, scenes) {
