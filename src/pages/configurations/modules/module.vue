@@ -11,30 +11,56 @@
       </f7-nav-right>
     </f7-navbar>
 
+    <f7-block-title>Modulo</f7-block-title>
     <f7-list>
       <f7-list-item>
-        <div class="list-title">{{ module.name }}</div>
+        <div class="list-title">{{ module.name }} <span class="disconnected" v-if="!module.connected"></span></div>
         <small>{{ module.type }}</small> <small>{{ module.version }}</small>
       </f7-list-item>
-      <f7-list-item title="Conectado">{{ module.connected ? 'Sim' : 'Não' }}</f7-list-item>
-      <f7-list-item :link="`configurations/modules/${module.id}/driver/`" title="Driver"> Selecionar Driver</f7-list-item>
-      <f7-list-item :link="`configurations/modules/${module.id}/ui/`" title="Interface"> Selecionar Interface</f7-list-item>
-      <f7-list-item title="Ativo"><f7-toggle :checked="module.status"></f7-toggle></f7-list-item>
+      <f7-list-item title="Ativo"><f7-toggle :checked="!!module.status"></f7-toggle></f7-list-item>
+    </f7-list>
+
+    <f7-block-title>Driver</f7-block-title>
+    <f7-list>
+      <f7-list-item v-if="module.driver.name">
+        <div class="list-title">{{ module.driver.name }} <span class="install" v-if="!module.driver.installed"><f7-icon material="cloud_download"></f7-icon></span></div>
+        <small>{{ module.driver.type }}</small> <small>{{ module.driver.version }}</small>
+      </f7-list-item>
+      <f7-list-item :link="`configurations/modules/${module.id}/driver/`" :title="module.driver.name ? 'Alterar' : 'Selecione'"></f7-list-item>
+    </f7-list>
+
+    <f7-block-title>Interface</f7-block-title>
+    <f7-list>
+      <f7-list-item v-if="module.ui.name">
+        <div class="list-title">{{ module.ui.name }} <span class="install" v-if="!module.ui.installed"><f7-icon material="cloud_download"></f7-icon></span></div>
+        <small>{{ module.ui.type }}</small> <small>{{ module.ui.version }}</small>
+      </f7-list-item>
+      <f7-list-item :link="`configurations/modules/${module.id}/ui/`" :title="module.ui.name ? 'Alterar' : 'Selecione'"></f7-list-item>
     </f7-list>
   </f7-page>
 </template>
 <script>
-
 export default {
-  data() {
-    return {
-      module: this.$store.getters['modules/module'](this.$f7route.params.id),
-    };
+  computed: {
+    module() {
+      return this.$store.getters['modules/module'](this.$f7route.params.id);
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+  .disconnected {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: red;
+  }
+
+  .install {
+
+  }
+
   .item-inner {
     flex-wrap: wrap;
   }

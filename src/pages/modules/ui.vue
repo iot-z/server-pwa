@@ -2,22 +2,44 @@
   <f7-page>
     <div class="container-flex">
       <f7-navbar :title="module.name" back-link="Back"></f7-navbar>
-
-      <iframe src="" frameborder="0"></iframe>
+      <iframe ref="iframe" :src="`ui/${module.id}/`" @load="onLoad" frameborder="0"></iframe>
     </div>
   </f7-page>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      module: {
-        name: 'Teste',
-        url: 'teste',
-      },
-    };
+  computed: {
+    module() {
+      return this.$store.getters['modules/module'](this.$f7route.params.id);
+    },
   },
+  methods: {
+    onLoad() {
+      const iframe = this.$refs.iframe;
+      const module = this.module;
+
+      iframe.addEventListener('load', function(){
+        iframe.postMessage({
+          type: 'create',
+          state: module.state,
+          actions: module.actions,
+        }, '*');
+      });
+    },
+
+    onPostMessage(e) {
+      console.log(e);
+    }
+  },
+
+  created() {
+    window.addEventListener('message', this.onPostMessage);
+  }
+
+  destroyed() {
+    window.removeEventListener('message', this.onPostMessage);
+  }
 };
 </script>
 
