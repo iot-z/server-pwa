@@ -19,27 +19,26 @@ export default {
       const iframe = this.$refs.iframe;
       const module = this.module;
 
-      iframe.addEventListener('load', function(){
-        iframe.postMessage({
-          type: 'create',
-          state: module.state,
-          actions: module.actions,
-        }, '*');
-      });
+      iframe.postMessage({
+        type: 'create',
+        state: module.state,
+        actions: module.actions,
+      }, '*');
     },
 
     onPostMessage(e) {
+      /* eslint-disable no-console */
       console.log(e);
-    }
+    },
   },
 
   created() {
     window.addEventListener('message', this.onPostMessage);
-  }
+  },
 
   destroyed() {
     window.removeEventListener('message', this.onPostMessage);
-  }
+  },
 };
 </script>
 
