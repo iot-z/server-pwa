@@ -16,7 +16,10 @@ export default {
   },
   methods: {
     onLoad() {
-      const iframe = this.$refs.iframe;
+      /* eslint-disable no-console */
+      console.log('load', this);
+
+      const iframe = this.$refs.iframe.contentWindow;
       const module = this.module;
 
       iframe.postMessage({
