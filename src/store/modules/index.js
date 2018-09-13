@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 
 import _ from 'lodash';
+import { Observable, ObservableFn } from '@iotz/util-observable';
 import socket from '../../socket';
 
 const add = (list, value) => {
@@ -51,10 +53,29 @@ export default {
   },
 
   mutations: {
+    state(state, payload) {
+      const module = state.modules.find(item => item.id === payload.moduleId);
+
+      module.state.set(payload.prop, payload.val, false);
+    },
+
     aliases(state, aliases) {
       state.aliases = aliases;
     },
     modules(state, modules) {
+      const cbState = module => (prop, oldVal, val) => {
+        socket.emit('modules.state', { moduleId: module.id, prop, val });
+      };
+
+      const cbActions = module => (action, params) => {
+        socket.emit('modules.actions', { moduleId: module.id, action, params });
+      };
+
+      modules.forEach((item) => {
+        item.state = Observable(item.state, cbState(item));
+        item.actions = ObservableFn(item.actions, cbActions(item));
+      });
+
       state.modules = modules;
     },
     scenes(state, scenes) {

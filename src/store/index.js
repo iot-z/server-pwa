@@ -45,8 +45,10 @@ const store = new Vuex.Store({
 socket.on('connect', () => store.commit('connected', true));
 socket.on('disconnect', () => store.commit('connected', false));
 
-socket.on('modules/aliases', data => store.commit('modules/aliases', data));
-socket.on('modules/modules', data => store.commit('modules/modules', data));
-socket.on('modules/scenes', data => store.commit('modules/scenes', data));
+socket.on('modules.aliases', payload => store.commit('modules/aliases', payload));
+socket.on('modules.modules', payload => store.commit('modules/modules', payload));
+socket.on('modules.scenes', payload => store.commit('modules/scenes', payload));
+
+socket.on('modules.state', payload => store.commit('modules/state', payload));
 
 export default store;
